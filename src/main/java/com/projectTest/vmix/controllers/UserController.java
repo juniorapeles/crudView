@@ -1,7 +1,7 @@
 package com.projectTest.vmix.controllers;
 
 import com.projectTest.vmix.entities.User;
-import com.projectTest.vmix.repositories.UserRepository;
+import com.projectTest.vmix.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,28 +12,28 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserRepository repository;
+    private UserService service;
 
     @GetMapping
     public List<User> findAll() {
-        List<User> result = repository.findAll();
+        List<User> result = service.findAll();
         return result;
     }
 
     @GetMapping(value = "/{id}")
     public User findById(@PathVariable Long id) {
-        User result = repository.findById(id).get();
+        User result = service.findById(id);
         return result;
     }
 
     @PostMapping
     public User insert(@RequestBody User user) {
-        User result = repository.save(user);
+        User result = service.insert(user);
         return result;
     }
 
     @DeleteMapping(value = "/{id}")
     public void deleteById(@PathVariable Long id) {
-         repository.deleteById(id);
+         service.deleteById(id);
     }
 }
