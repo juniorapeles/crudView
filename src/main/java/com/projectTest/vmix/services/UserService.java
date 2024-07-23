@@ -1,10 +1,12 @@
 package com.projectTest.vmix.services;
 
+import com.projectTest.vmix.dto.UserDTO;
 import com.projectTest.vmix.entities.User;
 import com.projectTest.vmix.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -12,8 +14,12 @@ public class UserService {
     @Autowired
     private UserRepository repository;
 
-    public List<User> findAll() {
-        List<User> result = repository.findAll();
+    public List<UserDTO> findAll() {
+        List<User> users =  repository.findAll();
+
+        List<UserDTO> result = users.stream()
+                .map(user -> new UserDTO(user))
+                .collect(Collectors.toList());
         return result;
     }
 

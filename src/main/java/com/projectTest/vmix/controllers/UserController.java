@@ -1,5 +1,6 @@
 package com.projectTest.vmix.controllers;
 
+import com.projectTest.vmix.dto.UserDTO;
 import com.projectTest.vmix.entities.User;
 import com.projectTest.vmix.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,8 @@ public class UserController {
     private UserService service;
 
     @GetMapping
-    public List<User> findAll() {
-        List<User> result = service.findAll();
+    public List<UserDTO> findAll() {
+        List<UserDTO> result = service.findAll();
         return result;
     }
 
