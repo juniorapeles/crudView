@@ -3,9 +3,11 @@ package com.projectTest.vmix.services;
 import com.projectTest.vmix.dto.UserDTO;
 import com.projectTest.vmix.entities.User;
 import com.projectTest.vmix.repositories.UserRepository;
+import com.projectTest.vmix.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,9 +25,10 @@ public class UserService {
         return result;
     }
 
-    public User findById(Long id) {
-        User result = repository.findById(id).get();
-        return result;
+    public UserDTO findById(Long id) {
+        Optional<User> obj = repository.findById(id);
+        User entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not Found " + id));
+        return new UserDTO(entity);
     }
 
     public User insert(User user) {
@@ -34,6 +37,8 @@ public class UserService {
     }
 
     public void deleteById(Long id) {
+        Optional<User> obj = repository.findById(id);
+        User entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not Found " + id));
         repository.deleteById(id);
     }
 }
