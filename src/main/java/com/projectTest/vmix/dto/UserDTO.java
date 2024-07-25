@@ -18,7 +18,7 @@ public class UserDTO {
        this.id = user.getId();
        this.name = user.getName();
        this.email = user.getEmail();
-       this.department = user.getDepartament();
+       this.department = user.getDepartment();
     }
 
     public UserDTO(Long id, String name, String email, Department department) {

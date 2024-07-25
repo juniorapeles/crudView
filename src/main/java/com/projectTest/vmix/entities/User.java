@@ -1,5 +1,6 @@
 package com.projectTest.vmix.entities;
 
+import com.projectTest.vmix.dto.UserDTO;
 import jakarta.persistence.*;
 
 @Entity
@@ -15,6 +16,23 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
+
+    public User() {
+    }
+
+    public User(Long id, String name, String email, Department department) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.department = department;
+    }
+
+    public User(UserDTO dto) {
+        this.id = dto.getId();
+        this.name = dto.getName();
+        this.email = dto.getEmail();
+        this.department = dto.getDepartment();
+    }
 
     public Long getId() {
         return id;
@@ -40,11 +58,11 @@ public class User {
         this.email = email;
     }
 
-    public Department getDepartament() {
+    public Department getDepartment() {
         return department;
     }
 
-    public void setDepartament(Department departament) {
-        this.department = departament;
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 }
